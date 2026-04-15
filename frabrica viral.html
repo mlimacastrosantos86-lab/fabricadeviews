@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fábrica de Conteúdo Viral 🚀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --pink: #ff2d78;
+    --cyan: #00e5ff;
+    --yellow: #ffea00;
+    --purple: #9b4dff;
+    --white: #f0eeff;
+    --muted: #6b6a80;
+    --card: #1a1a26;
+    --border: #2a2a3a;
+    --success: #00ff88;
+    --radius: 14px;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px 80px;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .hero-glow.g1 { width: 500px; height: 500px; background: var(--pink); opacity: 0.12; top: -100px; left: -100px; }
+  .hero-glow.g2 { width: 400px; height: 400px; background: var(--cyan); opacity: 0.10; bottom: -80px; right: -80px; }
+  .hero-glow.g3 { width: 300px; height: 300px; background: var(--purple); opacity: 0.08; top: 40%; left: 50%; transform: translate(-50%,-50%); }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,45,120,0.15);
+    border: 1px solid rgba(255,45,120,0.3);
+    color: var(--pink);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 50px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 10vw, 110px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 .accent { color: var(--pink); }
+  .hero h1 .accent2 { color: var(--cyan); }
+
+  .hero-sub {
+    font-size: clamp(16px, 2.5vw, 20px);
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-sub strong { color: var(--white); }
+
+  .cta-group {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--pink);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(255,45,120,0.4);
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(255,45,120,0.6); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 13px 28px;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* PROGRESS BAR */
+  .progress-bar-section {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+  }
+  .progress-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-label {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--muted);
+  }
+  .progress-label span { color: var(--success); }
+  .progress-track {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--cyan));
+    border-radius: 6px;
+    transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .progress-pct {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--cyan);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* SECTIONS */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  section { padding: 80px 0; position: relative; }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    max-width: 540px;
+    font-size: 15px;
+    margin-bottom: 48px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* PORQUÊ SECTION */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .why-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .why-card:hover { border-color: rgba(255,45,120,0.4); transform: translateY(-3px); }
+  .why-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--pink), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .why-card:hover::before { opacity: 1; }
+  .why-icon { font-size: 28px; margin-bottom: 14px; }
+  .why-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .why-card p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  /* GATILHOS */
+  .triggers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .trigger-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .trigger-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+  .trigger-num {
+    font-family: var(--font-display);
+    font-size: 48px;
+    line-height: 1;
+    color: rgba(0,229,255,0.15);
+    margin-bottom: 8px;
+  }
+  .trigger-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--cyan);
+  }
+  .trigger-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .tab-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { border-color: var(--pink); color: var(--white); }
+  .tab-btn.active {
+    background: var(--pink);
+    border-color: var(--pink);
+    color: #fff;
+  }
+
+  /* CATEGORY HEADER */
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .cat-header .cat-emoji { font-size: 24px; }
+  .cat-header h3 { font-family: var(--font-display); font-size: 24px; letter-spacing: 0.5px; }
+  .cat-header .cat-progress { font-size: 12px; color: var(--muted); margin-left: auto; }
+  .cat-header .cat-progress span { color: var(--success); font-weight: 700; }
+
+  /* IDEAS LIST */
+  .ideas-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .idea-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .idea-item:hover { border-color: rgba(255,45,120,0.4); background: #1e1e2c; }
+  .idea-item.done {
+    border-color: rgba(0,255,136,0.3);
+    background: rgba(0,255,136,0.04);
+  }
+  .idea-item.done .idea-text {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: rgba(0,255,136,0.4);
+  }
+
+  .idea-check {
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    font-size: 13px;
+  }
+  .idea-item.done .idea-check {
+    background: var(--success);
+    border-color: var(--success);
+    color: #000;
+  }
+  .idea-item:not(.done):hover .idea-check {
+    border-color: var(--pink);
+  }
+
+  .idea-text {
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+    transition: color 0.2s;
+  }
+
+  .idea-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 50px;
+    background: rgba(255,45,120,0.12);
+    color: var(--pink);
+    white-space: nowrap;
+  }
+  .idea-item.done .idea-badge {
+    background: rgba(0,255,136,0.1);
+    color: var(--success);
+  }
+
+  /* ROTEIROS */
+  .roteiro-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+  .roteiro-card:hover { border-color: rgba(155,77,255,0.4); }
+  .roteiro-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .roteiro-num {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--purple);
+    width: 32px;
+  }
+  .roteiro-title { font-weight: 700; font-size: 16px; }
+  .roteiro-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .roteiro-step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .roteiro-step-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 50px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-gancho { background: rgba(255,45,120,0.15); color: var(--pink); }
+  .step-dev { background: rgba(0,229,255,0.12); color: var(--cyan); }
+  .step-cta { background: rgba(155,77,255,0.15); color: var(--purple); }
+  .roteiro-step-text { font-size: 14px; color: var(--white); line-height: 1.5; }
+
+  /* CHECKLIST */
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .check-item:hover { border-color: rgba(255,234,0,0.3); }
+  .check-item.done { border-color: rgba(0,255,136,0.3); background: rgba(0,255,136,0.04); }
+  .check-icon {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .check-item.done .check-icon { background: var(--success); border-color: var(--success); color: #000; }
+  .check-text { font-size: 14px; font-weight: 500; }
+  .check-item.done .check-text { color: var(--muted); text-decoration: line-through; }
+
+  /* EXTRAS */
+  .extras-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .extra-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: border-color 0.2s;
+  }
+  .extra-card:hover { border-color: rgba(155,77,255,0.4); }
+  .extra-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .extra-list { list-style: none; }
+  .extra-list li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .extra-list li:last-child { border-bottom: none; }
+  .extra-list li::before { content: '→'; color: var(--pink); font-size: 12px; flex-shrink: 0; }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer .footer-logo {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--pink);
+    margin-bottom: 10px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--card);
+    border: 1px solid var(--success);
+    color: var(--success);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 12px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.hide { opacity: 0; transform: translateY(10px); }
+  .toast.undo { border-color: var(--muted); color: var(--muted); }
+
+  /* CONFETTI CONTAINER */
+  .confetti-wrap {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9998;
+    overflow: hidden;
+  }
+  .confetti-p {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    opacity: 0;
+    animation: confettiFall 1.2s ease forwards;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(300px) rotate(720deg); opacity: 0; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .triggers-grid { grid-template-columns: 1fr 1fr; }
+    .roteiro-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .tabs { gap: 6px; }
+    .tab-btn { font-size: 12px; padding: 6px 12px; }
+  }
+
+  /* Show/hide categories */
+  .cat-section { display: none; }
+  .cat-section.active { display: block; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,10,15,0.0);
+    transition: background 0.3s, border-color 0.3s;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled {
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom-color: var(--border);
+  }
+  .nav-logo { font-family: var(--font-display); font-size: 22px; color: var(--pink); letter-spacing: 1px; }
+  .nav-cta { display: none; }
+  nav.scrolled .nav-cta { display: flex; }
+</style>
+</head>
+<body>
+
+<div class="confetti-wrap" id="confettiWrap"></div>
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-logo">🚀 VIRAL FACTORY</div>
+  <a href="#ideias" class="btn-primary nav-cta" style="font-size:13px;padding:9px 20px">Ver 100 Ideias</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow g1"></div>
+  <div class="hero-glow g2"></div>
+  <div class="hero-glow g3"></div>
+  <div class="badge">🔥 Para TikTok & Reels</div>
+  <h1>FÁBRICA DE<br><span class="accent">CONTEÚDO</span><br><span class="accent2">VIRAL</span></h1>
+  <p class="hero-sub">Você nunca mais vai ficar sem ideia. <strong>100 ideias prontas</strong>, roteiros simples e os gatilhos que fazem vídeos explodirem.</p>
+  <div class="cta-group">
+    <a href="https://pay.cakto.com.br/34ej66f_824733" target="_blank" class="btn-primary">🔥 Ver Gatilhos de Viralização</a>
+  </div>
+</section>
+
+<!-- PROGRESS BAR (sticky) -->
+<div class="progress-bar-section">
+  <div class="progress-inner">
+    <div class="progress-label">Progresso: <span id="doneCount">0</span>/100</div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-pct" id="progressPct">0%</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- POR QUÊ -->
+<section>
+  <div class="container">
+    <div class="section-tag">Introdução</div>
+    <h2 class="section-title">Por que a maioria<br>não cresce?</h2>
+    <p class="section-desc">O segredo não é talento. É padrão de conteúdo. Quem entende isso cresce mesmo sem câmera profissional ou milhares de seguidores.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">😵‍💫</div>
+        <h3>Esperam inspiração</h3>
+        <p>Ficam travados esperando a ideia perfeita. Quem cresce posta todo dia usando ideias já comprovadas.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📚</div>
+        <h3>Estudam demais</h3>
+        <p>Consomem conteúdo sobre conteúdo, mas não produzem. O algoritmo premia quem posta, não quem planeja.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎯</div>
+        <h3>Faltam de padrão</h3>
+        <p>Postam aleatório, sem estrutura. Viral não é sorte — é repetição de um padrão que funciona.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🚀</div>
+        <h3>A solução é simples</h3>
+        <p>Use ideias prontas, aplique os gatilhos certos e poste todo dia. É isso. Não tem mistério.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- GATILHOS -->
+<section id="gatilhos">
+  <div class="container">
+    <div class="section-tag">Os 7 Gatilhos</div>
+    <h2 class="section-title">O que faz um<br>vídeo <span style="color:var(--pink)">viralizar</span></h2>
+    <p class="section-desc">Esses são os gatilhos psicológicos que o cérebro não consegue ignorar. Use pelo menos um em cada vídeo.</p>
+    <div class="triggers-grid">
+      <div class="trigger-card">
+        <div class="trigger-num">01</div>
+        <div class="trigger-name">Curiosidade</div>
+        <div class="trigger-desc">Abra um loop que o cérebro precisa fechar. "Eu nunca imaginei que isso fosse real…"</div>
+      </div>
+      <div class="trigger-card">
+        <div class="trigger-num">02</div>
+        <div class="trigger-name">Identificação</div>
+        <div class="trigger-desc">Faz a pessoa pensar "isso sou eu". Quando ela se vê, ela compartilha.</div>
+      </div>
+      <div class="trigger-card">
+        <div class="trigger-num">03</div>
+        <div class="trigger-name">Polêmica</div>
+        <div class="trigger-desc">Opinião que divide. Quem concorda salva. Quem discorda comenta. Os dois alimentam o algoritmo.</div>
+      </div>
+      <div class="trigger-card">
+        <div class="trigger-num">04</div>
+        <div class="trigger-name">Autoridade</div>
+        <div class="trigger-desc">Mostre experiência real. "Depois de 6 meses testando, aprendi isso…" Gera confiança instantânea.</div>
+      </div>
+      <div class="trigger-card">
+        <div class="trigger-num">05</div>
+        <div class="trigger-name">Humor</div>
+        <div class="trigger-desc">Conteúdo que faz rir é compartilhado reflexivamente. O riso libera dopamina — e engajamento.</div>
+      </div>
+      <div class="trigger-card">
+        <div class="trigger-num">06</div>
+        <div class="trigger-name">Transformação</div>
+        <div class="trigger-desc">Antes vs depois. A jornada de mudança ativa emoção e inspira ação nos outros.</div>
+      </div>
+      <div class="trigger-card">
+        <div class="trigger-num">07</div>
+        <div class="trigger-name">Segredo</div>
+        <div class="trigger-desc">"O que ninguém te conta sobre…" Todos querem acesso ao conhecimento exclusivo que os outros não têm.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- IDEIAS -->
+<section id="ideias">
+  <div class="container">
+    <div class="section-tag">100 Ideias Prontas</div>
+    <h2 class="section-title">Marque cada ideia<br>que você <span style="color:var(--cyan)">usou</span></h2>
+    <p class="section-desc">Clique na ideia para marcar como concluído. Acompanhe seu progresso no topo da página.</p>
+
+    <div class="tabs" id="tabsBar">
+      <button class="tab-btn active" data-cat="all" onclick="switchTab('all')">🔥 Todas</button>
+      <button class="tab-btn" data-cat="rotina" onclick="switchTab('rotina')">📱 Rotina</button>
+      <button class="tab-btn" data-cat="dinheiro" onclick="switchTab('dinheiro')">💰 Dinheiro</button>
+      <button class="tab-btn" data-cat="psico" onclick="switchTab('psico')">🧠 Psicologia</button>
+      <button class="tab-btn" data-cat="polemica" onclick="switchTab('polemica')">🎭 Polêmica</button>
+      <button class="tab-btn" data-cat="edu" onclick="switchTab('edu')">🎓 Educativo</button>
+      <button class="tab-btn" data-cat="humor" onclick="switchTab('humor')">😂 Humor</button>
+      <button class="tab-btn" data-cat="trans" onclick="switchTab('trans')">🚀 Transformação</button>
+      <button class="tab-btn" data-cat="curiosidade" onclick="switchTab('curiosidade')">🔥 Curiosidade</button>
+      <button class="tab-btn" data-cat="autoridade" onclick="switchTab('autoridade')">📊 Autoridade</button>
+      <button class="tab-btn" data-cat="acao" onclick="switchTab('acao')">⚡ Ação</button>
+    </div>
+
+    <!-- ALL IDEAS CONTAINER -->
+    <div id="ideasContainer"></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ROTEIROS -->
+<section id="roteiros">
+  <div class="container">
+    <div class="section-tag">Roteiros Prontos</div>
+    <h2 class="section-title">Só <span style="color:var(--purple)">copiar</span> e gravar</h2>
+    <p class="section-desc">Estrutura completa com gancho, desenvolvimento e chamada para ação. Adapte para o seu nicho.</p>
+
+    <div class="roteiro-card">
+      <div class="roteiro-header">
+        <div class="roteiro-num">01</div>
+        <div class="roteiro-title">O Segredo que Ninguém Conta</div>
+      </div>
+      <div class="roteiro-body">
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-gancho">Gancho</span>
+          <div class="roteiro-step-text">"Eu passei [X tempo] sem saber disso e me arrependo muito. Se eu tivesse aprendido antes, teria [resultado]. Mas ninguém me contou." — diga isso olhando pra câmera, sem corte.</div>
+        </div>
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-dev">Conteúdo</span>
+          <div class="roteiro-step-text">Revele 1 coisa específica que mudou sua perspectiva sobre [tema]. Explique de forma simples, com exemplo real da sua vida. Seja direto: cause > efeito > o que você faria diferente.</div>
+        </div>
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-cta">CTA</span>
+          <div class="roteiro-step-text">"Segue aqui porque toda semana eu trago uma coisa assim que me custou caro aprender." ou "Salva esse vídeo pra não esquecer."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roteiro-card">
+      <div class="roteiro-header">
+        <div class="roteiro-num">02</div>
+        <div class="roteiro-title">Antes vs Depois — Transformação</div>
+      </div>
+      <div class="roteiro-body">
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-gancho">Gancho</span>
+          <div class="roteiro-step-text">"Há [X meses/anos] eu era assim: [descreva o pior ponto]. Hoje eu sou assim: [descreva o melhor ponto]. A diferença? Uma decisão." — corte rápido ou transição visual.</div>
+        </div>
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-dev">Conteúdo</span>
+          <div class="roteiro-step-text">Conte a virada de forma cronológica e honesta. Não exagere, não minimize. 3 pontos: o problema, a decisão, o resultado. Detalhes específicos criam mais conexão do que generalidades.</div>
+        </div>
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-cta">CTA</span>
+          <div class="roteiro-step-text">"Se você está no ponto que eu estava, comenta aqui e eu te respondo." ou "Vai lá no link da bio que eu tenho algo pra te ajudar nesse começo."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roteiro-card">
+      <div class="roteiro-header">
+        <div class="roteiro-num">03</div>
+        <div class="roteiro-title">Opinião Impopular (Polêmica)</div>
+      </div>
+      <div class="roteiro-body">
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-gancho">Gancho</span>
+          <div class="roteiro-step-text">"Vou falar uma coisa que vai te incomodar. Mas precisa ser dito." — pausa de 1 segundo. Olho firme na câmera. O silêncio prende a atenção.</div>
+        </div>
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-dev">Conteúdo</span>
+          <div class="roteiro-step-text">Argumente sua opinião com 2 motivos reais. Não ataque pessoas, questione comportamentos e crenças. Seja específico: "Quando [situação X] acontece, a maioria faz Y. Mas isso causa Z."</div>
+        </div>
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-cta">CTA</span>
+          <div class="roteiro-step-text">"Concorda ou não? Comenta aqui." — comentários explodem o alcance. Não apague os que discordam; eles amplificam o vídeo.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roteiro-card">
+      <div class="roteiro-header">
+        <div class="roteiro-num">04</div>
+        <div class="roteiro-title">Tutorial Rápido (30 segundos)</div>
+      </div>
+      <div class="roteiro-body">
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-gancho">Gancho</span>
+          <div class="roteiro-step-text">"Em 30 segundos eu vou te ensinar [resultado concreto]. Não precisa de [obstáculo comum que as pessoas têm medo]. Só precisa fazer isso:" — corte imediato.</div>
+        </div>
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-dev">Conteúdo</span>
+          <div class="roteiro-step-text">Passo 1 → Passo 2 → Passo 3. Mostre, não só fale. Cada passo máximo de 5 segundos. Use texto na tela como legenda para quem assiste sem som.</div>
+        </div>
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-cta">CTA</span>
+          <div class="roteiro-step-text">"Salva esse vídeo pra não perder." — salvar é o engajamento mais poderoso pro algoritmo, melhor que curtida.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roteiro-card">
+      <div class="roteiro-header">
+        <div class="roteiro-num">05</div>
+        <div class="roteiro-title">Identificação — "Só quem é assim entende"</div>
+      </div>
+      <div class="roteiro-body">
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-gancho">Gancho</span>
+          <div class="roteiro-step-text">"Se você é [tipo de pessoa], você vai entender esse vídeo num outro nível." — cria tribo. Quem se identifica assiste até o final.</div>
+        </div>
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-dev">Conteúdo</span>
+          <div class="roteiro-step-text">Descreva 3 situações específicas do dia a dia desse perfil. Quanto mais específico, mais forte a identificação. "Você também faz isso quando [situação]?"</div>
+        </div>
+        <div class="roteiro-step">
+          <span class="roteiro-step-label step-cta">CTA</span>
+          <div class="roteiro-step-text">"Marca um amigo que também é assim." — marcação = alcance orgânico grátis. Funciona muito bem com humor e identificação.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <div class="container">
+    <div class="section-tag">Checklist Final</div>
+    <h2 class="section-title">Antes de<br><span style="color:var(--yellow)">postar</span></h2>
+    <p class="section-desc">Cada vídeo que você publica deve passar por esse checklist. Marque o que já é hábito.</p>
+    <div class="checklist-grid" id="checklistGrid"></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EXTRAS -->
+<section id="extras">
+  <div class="container">
+    <div class="section-tag">Bônus</div>
+    <h2 class="section-title">Extras para<br><span style="color:var(--purple)">decolar</span></h2>
+    <p class="section-desc">Nomes de perfil, bios prontas e ideias de nicho para você começar hoje mesmo.</p>
+    <div class="extras-grid">
+      <div class="extra-card">
+        <h3>✨ Nomes Virais para Perfil</h3>
+        <ul class="extra-list">
+          <li>Vida Real com [Seu Nome]</li>
+          <li>[Seu Nome] Direto ao Ponto</li>
+          <li>O Canal do [Tema] Simples</li>
+          <li>[Seu Nome] sem Filtro</li>
+          <li>Aprenda com [Seu Nome]</li>
+          <li>A Verdade sobre [Tema]</li>
+          <li>[Seu Nome] Descomplicado</li>
+          <li>Dicas de [Tema] Rápidas</li>
+        </ul>
+      </div>
+      <div class="extra-card">
+        <h3>💬 Bios Prontas</h3>
+        <ul class="extra-list">
+          <li>📲 [Tema] simples pra quem não tem tempo</li>
+          <li>🎯 [Resultado] sem complicação</li>
+          <li>✅ Dicas práticas de [tema] todo dia</li>
+          <li>🔥 Fui de zero a [resultado] e vou te contar</li>
+          <li>💡 O que aprendi sobre [tema] em [X] anos</li>
+          <li>📱 Conteúdo direto ao ponto sobre [tema]</li>
+          <li>🚀 [Promessa] em menos de 60 segundos</li>
+        </ul>
+      </div>
+      <div class="extra-card">
+        <h3>🎯 Ideias de Nicho Quentes</h3>
+        <ul class="extra-list">
+          <li>Finanças pessoais para iniciantes</li>
+          <li>Produtividade e rotina real</li>
+          <li>Alimentação saudável prática</li>
+          <li>Desenvolvimento pessoal sem papo</li>
+          <li>Empreendedorismo digital</li>
+          <li>Maternidade / paternidade real</li>
+          <li>Saúde mental no dia a dia</li>
+          <li>Tecnologia e IA para leigos</li>
+          <li>Relacionamentos e comunicação</li>
+          <li>Carreira e mercado de trabalho</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section style="background: var(--bg2); padding: 80px 0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag" style="text-align:center;">Agora é com você</div>
+    <h2 class="section-title" style="margin-bottom:16px">Para de planejar.<br><span style="color:var(--pink)">Começa a postar.</span></h2>
+    <p style="color:var(--muted);margin-bottom:36px;max-width:440px;margin-left:auto;margin-right:auto;">O algoritmo premia quem posta. Você tem 100 ideias na mão. Não tem mais desculpa.</p>
+    <a href="#ideias" class="btn-primary" style="font-size:16px;padding:16px 40px">🚀 Ver as 100 Ideias</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">VIRAL FACTORY 🚀</div>
+  <p>Fábrica de Conteúdo Viral para TikTok e Reels</p>
+  <p style="margin-top:6px">Feito para iniciantes que querem crescer de verdade.</p>
+</footer>
+
+<script>
+// ========================
+// DATA
+// ========================
+const categories = [
+  {
+    id: 'rotina',
+    emoji: '📱',
+    label: 'Rotina / Identificação',
+    ideas: [
+      'Um dia na minha vida sendo [sua realidade]',
+      'Coisas que eu faço que parecem estranhas mas funcionam',
+      'Minha rotina quando estou sem motivação',
+      'O que ninguém te conta sobre [tema]',
+      'Se você é assim, você vai entender isso',
+      'Minha vida antes vs depois de [algo]',
+      '3 coisas que mudaram minha vida',
+      'Erros que eu cometi e você não precisa cometer',
+      'Se eu tivesse começado isso antes…',
+      'O que eu faria se começasse do zero hoje',
+    ]
+  },
+  {
+    id: 'dinheiro',
+    emoji: '💰',
+    label: 'Dinheiro / Valor',
+    ideas: [
+      'Como eu ganharia dinheiro se estivesse quebrado',
+      '3 formas reais de fazer dinheiro online',
+      'O erro que te mantém pobre',
+      'Coisas que rico faz diferente',
+      'Se você quer ganhar dinheiro, pare de fazer isso',
+      'Como sair do zero',
+      'Ideia simples pra renda extra',
+      'Isso vale mais que dinheiro',
+      'O que ninguém te ensina sobre dinheiro',
+      'Pare de fazer isso com seu dinheiro',
+    ]
+  },
+  {
+    id: 'psico',
+    emoji: '🧠',
+    label: 'Psicologia / Mente',
+    ideas: [
+      'Seu cérebro está te sabotando assim',
+      'Você está viciado nisso e não percebe',
+      'O motivo de você não ter disciplina',
+      'Pare de pensar assim',
+      'Isso destrói sua produtividade',
+      'A verdade sobre motivação',
+      'Você não é preguiçoso, você só…',
+      'O segredo da disciplina',
+      'Como parar de procrastinar',
+      'O maior erro mental',
+    ]
+  },
+  {
+    id: 'polemica',
+    emoji: '🎭',
+    label: 'Polêmica / Opinião',
+    ideas: [
+      'Vou falar algo que ninguém tem coragem',
+      'A verdade que ninguém aceita',
+      'Isso aqui é uma mentira',
+      'Estão te enganando sobre isso',
+      'Se você acredita nisso, cuidado',
+      'O problema dessa geração',
+      'Isso deveria ser proibido',
+      'Ninguém fala disso',
+      'Opinião impopular:',
+      'Isso aqui não faz sentido',
+    ]
+  },
+  {
+    id: 'edu',
+    emoji: '🎓',
+    label: 'Educativo Simples',
+    ideas: [
+      'Aprenda isso em 30 segundos',
+      '3 dicas rápidas de [tema]',
+      'Como fazer isso do jeito certo',
+      'Guia rápido de [tema]',
+      'Evite esses erros',
+      'Passo a passo simples',
+      'Tutorial rápido',
+      'Se você quer [resultado], faça isso',
+      'Isso aqui resolve',
+      'Aprenda isso hoje',
+    ]
+  },
+  {
+    id: 'humor',
+    emoji: '😂',
+    label: 'Humor / Relatável',
+    ideas: [
+      'Só quem faz isso vai entender',
+      'Minha reação quando…',
+      'Expectativa vs realidade',
+      'Todo mundo faz isso',
+      'Eu tentando ser produtivo',
+      'Isso me representa',
+      'Quando você tenta mudar de vida',
+      'Eu prometendo mudar',
+      'Situações do dia a dia',
+      'Isso é muito real',
+    ]
+  },
+  {
+    id: 'trans',
+    emoji: '🚀',
+    label: 'Transformação',
+    ideas: [
+      'Antes vs depois',
+      'Como eu mudei isso',
+      'Minha evolução em X dias',
+      'Transformei isso em resultado',
+      'Veja isso',
+      'Olha a diferença',
+      'Isso mudou tudo',
+      'Resultado real',
+      'Prova que funciona',
+      'Veja até o final',
+    ]
+  },
+  {
+    id: 'curiosidade',
+    emoji: '🔥',
+    label: 'Curiosidade / Gancho',
+    ideas: [
+      'Você sabia disso?',
+      'Ninguém te contou isso',
+      'Isso vai explodir sua mente',
+      'Segredo revelado',
+      'Poucas pessoas sabem disso',
+      'Isso muda tudo',
+      'Olha isso',
+      'Presta atenção nisso',
+      'Isso aqui é absurdo',
+      'Você precisa ver isso',
+    ]
+  },
+  {
+    id: 'autoridade',
+    emoji: '📊',
+    label: 'Autoridade / Posicionamento',
+    ideas: [
+      'Se eu fosse você, faria isso',
+      'Depois de testar tudo, isso funciona',
+      'Minha experiência com isso',
+      'O que realmente funciona',
+      'Pare de perder tempo com isso',
+      'Foque nisso',
+      'Esse é o caminho',
+      'Isso aqui dá resultado',
+      'Confia nisso',
+      'Isso é simples',
+    ]
+  },
+  {
+    id: 'acao',
+    emoji: '⚡',
+    label: 'Ação / Direto ao Ponto',
+    ideas: [
+      'Faça isso hoje',
+      'Comece por aqui',
+      'Pare agora',
+      'Isso resolve',
+      'Faça diferente',
+      'Testa isso',
+      'Começa assim',
+      'Não complica',
+      'Só faz isso',
+      'Agora é com você',
+    ]
+  }
+];
+
+const checklistItems = [
+  'Postar 1 vídeo por dia',
+  'Usar gancho forte nos primeiros 3 segundos',
+  'Vídeos curtos (até 30 segundos)',
+  'Falar de forma simples e direta',
+  'Testar várias ideias diferentes',
+  'Usar pelo menos 1 gatilho psicológico',
+  'Incluir legenda/texto na tela',
+  'Ter uma chamada para ação no final',
+  'Postar no horário de pico do seu público',
+  'Responder os comentários nas primeiras horas',
+];
+
+// ========================
+// STATE
+// ========================
+let done = new Set();
+let checkDone = new Set();
+let currentTab = 'all';
+
+// Load from storage
+async function loadState() {
+  try {
+    const r = await window.storage.get('viral_factory_done');
+    if (r && r.value) done = new Set(JSON.parse(r.value));
+  } catch(e) {}
+  try {
+    const r = await window.storage.get('viral_factory_checklist');
+    if (r && r.value) checkDone = new Set(JSON.parse(r.value));
+  } catch(e) {}
+}
+
+async function saveDone() {
+  try { await window.storage.set('viral_factory_done', JSON.stringify([...done])); } catch(e) {}
+}
+async function saveChecklist() {
+  try { await window.storage.set('viral_factory_checklist', JSON.stringify([...checkDone])); } catch(e) {}
+}
+
+// ========================
+// RENDER
+// ========================
+function getIdeaId(catId, idx) { return `${catId}_${idx}`; }
+
+function renderIdeas() {
+  const container = document.getElementById('ideasContainer');
+  container.innerHTML = '';
+
+  const catsToShow = currentTab === 'all' ? categories : categories.filter(c => c.id === currentTab);
+
+  catsToShow.forEach(cat => {
+    const doneInCat = cat.ideas.filter((_, i) => done.has(getIdeaId(cat.id, i))).length;
+
+    const section = document.createElement('div');
+    section.className = 'cat-section active';
+    section.id = `cat_${cat.id}`;
+
+    const header = document.createElement('div');
+    header.className = 'cat-header';
+    header.innerHTML = `
+      <span class="cat-emoji">${cat.emoji}</span>
+      <h3>${cat.label}</h3>
+      <span class="cat-progress"><span>${doneInCat}</span>/${cat.ideas.length}</span>
+    `;
+    section.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'ideas-grid';
+
+    cat.ideas.forEach((idea, idx) => {
+      const id = getIdeaId(cat.id, idx);
+      const isDone = done.has(id);
+
+      const item = document.createElement('div');
+      item.className = 'idea-item' + (isDone ? ' done' : '');
+      item.dataset.id = id;
+      item.innerHTML = `
+        <div class="idea-check">${isDone ? '✓' : ''}</div>
+        <div class="idea-text">${idea}</div>
+        <span class="idea-badge">${isDone ? '✅ Feito' : '📌 Usar'}</span>
+      `;
+      item.addEventListener('click', () => toggleIdea(id));
+      grid.appendChild(item);
+    });
+
+    section.appendChild(grid);
+    container.appendChild(section);
+  });
+}
+
+function renderChecklist() {
+  const grid = document.getElementById('checklistGrid');
+  grid.innerHTML = '';
+  checklistItems.forEach((item, i) => {
+    const isDone = checkDone.has(i);
+    const el = document.createElement('div');
+    el.className = 'check-item' + (isDone ? ' done' : '');
+    el.innerHTML = `
+      <div class="check-icon">${isDone ? '✓' : ''}</div>
+      <div class="check-text">${item}</div>
+    `;
+    el.addEventListener('click', () => toggleCheck(i));
+    grid.appendChild(el);
+  });
+}
+
+function updateProgress() {
+  const total = 100;
+  const count = done.size;
+  const pct = Math.round((count / total) * 100);
+  document.getElementById('doneCount').textContent = count;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+// ========================
+// ACTIONS
+// ========================
+function toggleIdea(id) {
+  if (done.has(id)) {
+    done.delete(id);
+    showToast('↩ Desmarcado', true);
+  } else {
+    done.add(id);
+    showToast('✅ Marcado como concluído!');
+    spawnConfetti();
+  }
+  saveDone();
+  renderIdeas();
+  updateProgress();
+}
+
+function toggleCheck(i) {
+  if (checkDone.has(i)) { checkDone.delete(i); }
+  else { checkDone.add(i); spawnConfetti(); }
+  saveChecklist();
+  renderChecklist();
+}
+
+function switchTab(catId) {
+  currentTab = catId;
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.cat === catId);
+  });
+  renderIdeas();
+}
+
+// ========================
+// TOAST
+// ========================
+let toastTimer;
+function showToast(msg, undo) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (undo ? ' undo' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = 'toast hide'; }, 2000);
+}
+
+// ========================
+// CONFETTI
+// ========================
+const colors = ['#ff2d78','#00e5ff','#ffea00','#9b4dff','#00ff88','#ff6b35'];
+function spawnConfetti() {
+  const wrap = document.getElementById('confettiWrap');
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-p';
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 40 + 20}%;
+      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      animation-delay: ${Math.random() * 0.3}s;
+      animation-duration: ${0.8 + Math.random() * 0.8}s;
+    `;
+    wrap.appendChild(p);
+    setTimeout(() => p.remove(), 2000);
+  }
+}
+
+// ========================
+// NAV SCROLL
+// ========================
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ========================
+// INIT
+// ========================
+(async () => {
+  await loadState();
+  renderIdeas();
+  renderChecklist();
+  updateProgress();
+})();
+</script>
+</body>
+</html>
